@@ -5,6 +5,7 @@ class AppImages {
   //.svg
   static const String delete = "assets/icons/delete.svg";
   static const String splash = "assets/icons/splash.svg";
+  static const String google = "assets/icons/google.svg";
 
   //.jpg
 

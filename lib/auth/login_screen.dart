@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
+import 'package:my_furniture_project/utils/images/app_images.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -109,17 +111,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text('Remember For 30 Days',style: AppTextStyle.interRegular.copyWith(
                       color: AppColors.black.withOpacity(0.4),fontSize: 14.w
                     ),),
-                    Spacer(),
-                    Text('Forgot password')
+                    const Spacer(),
+                    Text('Forgot password',style: AppTextStyle.interRegular.copyWith(
+                        color: AppColors.black,fontSize: 14.w
+                    ))
                   ],),
-
-                  Container(
-                    height: 60,
-                    width: double.infinity,
-                    margin: const EdgeInsets.all(24),
+                  SizedBox(height: 24.h),
+                   SizedBox(
+                    width:width,
+                    // padding: EdgeInsets.symmetric(vertical:26.h),
                     child: TextButton(
                       style: TextButton.styleFrom(
-                          backgroundColor: Colors.green,
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                          backgroundColor:AppColors.c_0C8A7B,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16))),
                       onPressed: () {
@@ -130,44 +134,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                       },
                       child: Text(
-                        "LOGIN",
+                        "Sign in",
                         style: AppTextStyle.interSemiBold
-                            .copyWith(fontSize: 24, color: Colors.white),
+                            .copyWith(fontSize: 16.w, color: Colors.white),
                       ),
                     ),
                   ),
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 16.h,),
                   Container(
-                    height: 60,
-                    width: double.infinity,
-                    margin: const EdgeInsets.all(24),
+                    width: width,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          RouteNames.registerRoute,
-                        );
-                      },
-                      child: Text(
-                        "REGISTER",
-                        style: AppTextStyle.interSemiBold
-                            .copyWith(fontSize: 24, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 60,
-                    width: double.infinity,
-                    margin: const EdgeInsets.all(24),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        padding:EdgeInsets.symmetric(vertical: 16.h),
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -176,13 +155,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.read<AuthViewModel>().signInWithGoogle(context,
                             Platform.isAndroid ? null : AppConstants.clientID);
                       },
-                      child: Text(
-                        "LOGIN WITH GOOGLE",
-                        style: AppTextStyle.interSemiBold
-                            .copyWith(fontSize: 16, color: Colors.white),
-                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(AppImages.google),
+                        SizedBox(width: 6.w,),
+                        Text(
+                          "Sign in  With Google",
+                          style: AppTextStyle.interSemiBold
+                              .copyWith(fontSize: 16, color: Colors.black),
+                        )
+                      ],),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 24.w,),
+                  Row(children: [
+
+                  ],)
                 ],
               ),
             ),
