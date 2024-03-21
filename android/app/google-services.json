@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "853582120659",
+    "project_id": "furniture-project-b33ec",
+    "storage_bucket": "furniture-project-b33ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853582120659:android:0821ff72b1aa9481d03626",
+        "android_client_info": {
+          "package_name": "com.example.my_furniture_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn8gBPdH5fZWtiySTaRpzXfbnxc1s6Z84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
