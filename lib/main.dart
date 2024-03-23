@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/view_models/auth_view_model.dart';
+import 'package:my_furniture_project/view_models/category_view_model.dart';
+import 'package:my_furniture_project/view_models/products_view_model.dart';
 import 'package:my_furniture_project/view_models/tab_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +21,8 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TabViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
-        // ChangeNotifierProvider(create: (_) => CategoriesViewModel()),
-        // ChangeNotifierProvider(create: (_) => ProductsViewModel()),
+        ChangeNotifierProvider(create: (_) => CategoriesViewModel()),
+        ChangeNotifierProvider(create: (_) => ProductsViewModel()),
       ],
       child: const MyApp(),
     ),

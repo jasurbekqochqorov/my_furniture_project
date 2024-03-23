@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
 import 'package:my_furniture_project/screens/tabs/profile/profile_screen.dart';
+import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/tab_view_model.dart';
@@ -15,9 +16,10 @@ class TabScreen extends StatefulWidget {
 
 class _TabScreenState extends State<TabScreen> {
   List<Widget> screens = [
-    CategoriesScreen(),
-    ProductsScreen(),
-    ProfileScreen(),
+    const CategoriesScreen(),
+    const ProductsScreen(),
+    const ProfileScreen(),
+
   ];
 
   @override
@@ -29,13 +31,13 @@ class _TabScreenState extends State<TabScreen> {
         onTap: (newIndex) {
           context.read<TabViewModel>().changeIndex(newIndex);
         },
+        selectedItemColor:AppColors.c_0C8A7B,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.category),
             label: "Categories",
             activeIcon: Icon(
               Icons.category,
-              color: Colors.green,
             ),
           ),
           BottomNavigationBarItem(
@@ -43,7 +45,6 @@ class _TabScreenState extends State<TabScreen> {
             label: "Products",
             activeIcon: Icon(
               Icons.check_box_outline_blank,
-              color: Colors.green,
             ),
           ),
           BottomNavigationBarItem(
@@ -51,7 +52,6 @@ class _TabScreenState extends State<TabScreen> {
             label: "Profile",
             activeIcon: Icon(
               Icons.person,
-              color: Colors.green,
             ),
           )
         ],

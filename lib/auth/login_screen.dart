@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/images/app_images.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:provider/provider.dart';
-
-import '../screens/routes.dart';
 import '../utils/constants/app_constants.dart';
 import '../utils/styles/app_text_style.dart';
 import '../view_models/auth_view_model.dart';
@@ -34,7 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor:Colors.grey.shade200,
       appBar: AppBar(
-        title: const Text("Login Screen"),
+        backgroundColor:Colors.grey.shade200,
+        elevation: 0,
       ),
       body: context.watch<AuthViewModel>().loading
           ? const Center(child: CircularProgressIndicator())
@@ -62,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: AppColors.white,
-
                     ),
                     child: TextFormField(
                       controller: emailController,
@@ -96,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8.h,),
+                  SizedBox(height: 12.h,),
                   Row(
                     children: [
                     Container(
@@ -141,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 16.h,),
-                  Container(
+                  SizedBox(
                     width: width,
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -168,10 +167,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],),
                     ),
                   ),
-                  SizedBox(height: 24.w,),
-                  Row(children: [
-
-                  ],)
+                  SizedBox(height: 16.h,),
+                  TextButton(onPressed: (){
+                    Navigator.pushReplacementNamed(context,RouteNames.registerRoute);
+                  },
+                      child:RichText(text:TextSpan(
+                        text: 'Don’t have an account?',
+                        style: AppTextStyle.interRegular.copyWith(
+                          fontSize: 14.w,color: AppColors.black.withOpacity(0.5)
+                        ),
+                        children: [
+                          TextSpan(
+                            text: ' Sing Up For Free',
+                            style: AppTextStyle.interRegular.copyWith(
+                              color: AppColors.black,fontSize: 14.w
+                            )
+                          )
+                        ]
+                      ),))
                 ],
               ),
             ),
