@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
@@ -23,6 +19,7 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  String searchText='';
   @override
   Widget build(BuildContext context) {
   User? user = context.watch<AuthViewModel>().getUser;
@@ -44,7 +41,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             );
           }
           if (snapshot.hasData) {
-            List<CategoryModel> list = snapshot.data as List<CategoryModel>;
+            List<CategoryModel> list = (snapshot.data as List<CategoryModel>).where((element) => element.categoryName.toLowerCase().contains(searchText.toLowerCase())).toList();
             return Column(
               children: [
                 SizedBox(height: 24.h,),
@@ -55,6 +52,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     color: AppColors.white
                   ),
                   child: TextField(
+                    onChanged: (v){
+                      setState(() {
+                        searchText=v;
+                      });
+                    },
                     style: AppTextStyle.interMedium.copyWith(
                       color: AppColors.black,fontSize: 16.w
                     ),
@@ -81,7 +83,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       return ZoomTapAnimation(
                         onTap: (){
                           Navigator.push(context,MaterialPageRoute(builder: (context){
-                            return ProductsScreen(categoryName: category.categoryName,);
+                            return ProductsScreen(categoryId: category.docId,);
                           }));
                         },
                         onLongTap: (){
@@ -114,7 +116,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             children: [
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
-                                child: Image.network(category.imageUrl,width: 128.w,height: 128.h,)),
+                                child: Image.network(category.imageUrl,width: 128.w,height: 120.h,fit: BoxFit.cover,)),
                             const Spacer(),
                             Text(category.categoryName,style: AppTextStyle.interMedium.copyWith(
                               color: AppColors.black,fontSize: 16.w
@@ -123,7 +125,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           ],),
                         ),
                       );
-                    })
+                    }),
                   ],),
                 ),
                 Container(
@@ -136,10 +138,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       onPressed:(){
                         Navigator.pushNamed(context, RouteNames.addCategory);
                       }, child:Text('Add Category',style: AppTextStyle.interRegular.copyWith(
-                    color: AppColors.white,fontSize: 20.w
+                    color: AppColors.white,fontSize: 18.w
                   ),)),
                 ),
-                SizedBox(height: 10.h,)
+                SizedBox(height: 10.h,),
               ],
             );
           }

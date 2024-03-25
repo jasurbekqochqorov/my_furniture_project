@@ -24,6 +24,9 @@ class _AddCategoryState extends State<AddCategory> {
       appBar: AppBar(
         backgroundColor: AppColors.white,
         elevation: 0,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        },icon:const Icon(Icons.arrow_back,color: AppColors.black,),),
         centerTitle: true,
         title:  Text('Add Category',style: AppTextStyle.interRegular.copyWith(
           color: AppColors.c_0C8A7B,fontSize: 24

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/splash/splash_screen.dart';
 import 'package:my_furniture_project/screens/tabs/categories/add_category/add_category_screen.dart';
+import 'package:my_furniture_project/screens/tabs/products/add_product/add_product_screen.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
 import 'package:my_furniture_project/screens/tabs/tab_screen.dart';
 
@@ -24,6 +25,7 @@ class AppRoutes {
 
       case RouteNames.addCategory:
         return navigate(const AddCategory());
+
       default:
         return navigate(
           const Scaffold(
@@ -47,4 +49,5 @@ class RouteNames {
   static const String loginRoute = "/login_route";
   static const String registerRoute = "/register_route";
   static const String addCategory = "/add_category_route";
+  static const String addProduct = "/add_product_route";
 }

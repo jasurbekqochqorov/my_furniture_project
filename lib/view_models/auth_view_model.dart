@@ -114,7 +114,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-//TODO 6
+// TODO 6
   Future<void> signInWithGoogle(BuildContext context, [String? clientId]) async {
     // Trigger the authentication flow
     _notify(true);
@@ -141,7 +141,7 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
-//
+
 // verifyEmail(){
 //   FirebaseAuth.instance.currentUser.sendEmailVerification();
 // }

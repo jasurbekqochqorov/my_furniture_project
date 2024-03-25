@@ -151,8 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () {
-                        context.read<AuthViewModel>().signInWithGoogle(context,
-                            Platform.isAndroid ? null : AppConstants.clientID);
+                        // context.read<AuthViewModel>().signInWithGoogle(context,
+                        //     Platform.isAndroid ? null : AppConstants.clientID);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
