@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
 import 'package:my_furniture_project/screens/tabs/profile/profile_screen.dart';
+import 'package:my_furniture_project/screens/tabs/shopping/shopping_screen.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> {
   List<Widget> screens = [
     const CategoriesScreen(),
-    const ProductsScreen(),
+    const ShoppingScreen(),
     const ProfileScreen(),
 
   ];
@@ -41,10 +42,10 @@ class _TabScreenState extends State<TabScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.check_box_outline_blank),
-            label: "Products",
+            icon: Icon(Icons.shopping_basket),
+            label: "Shopping",
             activeIcon: Icon(
-              Icons.check_box_outline_blank,
+              Icons.shopping_basket,
             ),
           ),
           BottomNavigationBarItem(

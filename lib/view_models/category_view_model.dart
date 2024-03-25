@@ -80,7 +80,6 @@ class CategoriesViewModel extends ChangeNotifier {
           .collection(AppConstants.categories)
           .doc(docId)
           .delete();
-
       _notify(false);
     } on FirebaseException catch (error) {
       if (!context.mounted) return;

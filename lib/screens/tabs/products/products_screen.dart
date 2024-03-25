@@ -5,8 +5,8 @@ import '../../../data/model/product_model.dart';
 import '../../../view_models/products_view_model.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key});
-
+  const ProductsScreen({super.key, required this.categoryName});
+  final String categoryName;
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
 }
@@ -17,25 +17,25 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Products"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<ProductsViewModel>().insertProducts(
-                    ProductModel(
-                      price: 12.5,
-                      imageUrl:
-                          "https://i.ebayimg.com/images/g/IUMAAOSwZGBkTR-K/s-l400.png",
-                      productName: "Nokia 12 80",
-                      docId: "",
-                      productDescription: "productDescription",
-                      categoryId: "kcggCJzOEz7gH1LQy44x",
-                    ),
-                    context,
-                  );
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
+        // actions: [
+        //   // IconButton(
+        //   //   onPressed: () {
+        //   //     context.read<ProductsViewModel>().insertProducts(
+        //   //           ProductModel(
+        //   //             price: 12.5,
+        //   //             imageUrl:
+        //   //                 "https://i.ebayimg.com/images/g/IUMAAOSwZGBkTR-K/s-l400.png",
+        //   //             productName: "Nokia 12 80",
+        //   //             docId: "",
+        //   //             productDescription: "productDescription",
+        //   //             categoryId: "kcggCJzOEz7gH1LQy44x",
+        //   //           ),
+        //   //           context,
+        //   //         );
+        //   //   },
+        //   //   icon: const Icon(Icons.add),
+        //   // ),
+        // ],
       ),
       body: StreamBuilder<List<ProductModel>>(
         stream: context.read<ProductsViewModel>().listenProducts(),
