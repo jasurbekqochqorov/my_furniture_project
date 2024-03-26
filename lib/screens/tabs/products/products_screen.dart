@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/tabs/products/about_product/about_product_screen.dart';
 import 'package:my_furniture_project/screens/tabs/products/add_product/add_product_screen.dart';
+import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
@@ -20,6 +21,7 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   String searchText='';
+  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,10 +105,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                         .read<ProductsViewModel>()
                                         .deleteProduct(product.docId, context);
                                     Navigator.pop(context);
+                                    LocalNotificationService().showNotification(
+                                        id:id,
+                                        title:"${ product.productName} mahsulot o'chirildi",
+                                        body: 'Mahsulotni korish');
+                                    id++;
                                   }, child:const Text('ok')),
                                 ],
                               );
                             });
+
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: (index.isEven)?24.w:0,right: (index.isOdd)?24.w:0),

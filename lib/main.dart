@@ -1,17 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/routes.dart';
+import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/view_models/auth_view_model.dart';
 import 'package:my_furniture_project/view_models/category_view_model.dart';
 import 'package:my_furniture_project/view_models/products_view_model.dart';
 import 'package:my_furniture_project/view_models/tab_view_model.dart';
 import 'package:provider/provider.dart';
-
-import 'firebase_options.dart';
+import 'servise/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  // LocalNotificationService().init();
+  await configureLocalTimeZone();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+    LocalNotificationService.localNotificationService.init(navigatorKey);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

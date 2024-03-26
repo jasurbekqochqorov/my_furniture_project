@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../data/model/product_model.dart';
 import '../utils/constants/app_constants.dart';
 import '../utils/utility_functions.dart';
@@ -44,6 +43,7 @@ class ProductsViewModel extends ChangeNotifier {
           .collection(AppConstants.products)
           .doc(cf.id)
           .update({"doc_id": cf.id});
+
 
       _notify(false);
     } on FirebaseException catch (error) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/data/model/product_model.dart';
+import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
@@ -17,7 +18,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController imageController=TextEditingController();
   TextEditingController priceController=TextEditingController();
   TextEditingController productDescriptionController=TextEditingController();
-
+  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +99,10 @@ class _AddProductState extends State<AddProduct> {
                   categoryId:widget.categoryId,),
                 context);
             Navigator.pop(context);
-          },
+            LocalNotificationService().showNotification(
+                title: "${nameController.text} nomli mahsulot qoshildi", body:"Mahsulot", id: id);
+            id++;
+            },
               style: TextButton.styleFrom(
                   backgroundColor: AppColors.c_0C8A7B
               ),

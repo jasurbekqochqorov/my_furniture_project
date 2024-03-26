@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
+import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
@@ -20,6 +21,7 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   String searchText='';
+  int id=1;
   @override
   Widget build(BuildContext context) {
   User? user = context.watch<AuthViewModel>().getUser;
@@ -99,6 +101,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     .read<CategoriesViewModel>()
                                     .deleteCategory(category.docId, context);
                                   Navigator.pop(context);
+                                  LocalNotificationService().showNotification(
+                                      title:"${category.categoryName} category o'chirildi", body:'Categoryni korisg', id: id);
+                                  id++;
                                 }, child:const Text('ok')),
                               ],
                             );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/routes.dart';
+import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
@@ -18,6 +19,7 @@ class AddCategory extends StatefulWidget {
 class _AddCategoryState extends State<AddCategory> {
   TextEditingController nameController=TextEditingController();
   TextEditingController imageController=TextEditingController();
+  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +73,11 @@ class _AddCategoryState extends State<AddCategory> {
                     context,
                   );
             Navigator.pushReplacementNamed(context,RouteNames.tabRoute);
+            LocalNotificationService().showNotification(
+                title:"${nameController.text} category qoshildi",
+                body: 'Mahsulotni korish',
+                id: id);
+            id++;
             },
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.c_0C8A7B
