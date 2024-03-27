@@ -8,7 +8,9 @@ import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+import '../../../data/model/notification_model.dart';
 import '../../../data/model/product_model.dart';
+import '../../../view_models/local_notification_view_model.dart';
 import '../../../view_models/products_view_model.dart';
 import '../../routes.dart';
 
@@ -21,7 +23,6 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   String searchText='';
-  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,11 +106,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                         .read<ProductsViewModel>()
                                         .deleteProduct(product.docId, context);
                                     Navigator.pop(context);
+                                    NotificationModel notification=NotificationModel(name: "${product.productName} o'chirildi", id:DateTime.now().millisecond);
+                                    context.read<NotificationViewModel>().addNotification(notification);
                                     LocalNotificationService().showNotification(
-                                        id:id,
+                                        id:DateTime.now().millisecond,
                                         title:"${ product.productName} mahsulot o'chirildi",
                                         body: 'Mahsulotni korish');
-                                    id++;
                                   }, child:const Text('ok')),
                                 ],
                               );

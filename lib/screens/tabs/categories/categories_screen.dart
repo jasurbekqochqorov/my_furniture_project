@@ -9,8 +9,10 @@ import 'package:my_furniture_project/utils/styles/app_text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../data/model/category_model.dart';
+import '../../../data/model/notification_model.dart';
 import '../../../view_models/auth_view_model.dart';
 import '../../../view_models/category_view_model.dart';
+import '../../../view_models/local_notification_view_model.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -21,7 +23,6 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   String searchText='';
-  int id=1;
   @override
   Widget build(BuildContext context) {
   User? user = context.watch<AuthViewModel>().getUser;
@@ -101,9 +102,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     .read<CategoriesViewModel>()
                                     .deleteCategory(category.docId, context);
                                   Navigator.pop(context);
+                                  NotificationModel notification=NotificationModel(name: "${category.categoryName} o'chirildi", id:DateTime.now().millisecond);
+                                  context.read<NotificationViewModel>().addNotification(notification);
                                   LocalNotificationService().showNotification(
-                                      title:"${category.categoryName} category o'chirildi", body:'Categoryni korisg', id: id);
-                                  id++;
+                                      title:"${category.categoryName} category o'chirildi", body:'Categoryni korisg', id:notification.id);
                                 }, child:const Text('ok')),
                               ],
                             );

@@ -6,6 +6,9 @@ import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
 import 'package:my_furniture_project/view_models/products_view_model.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../data/model/notification_model.dart';
+import '../../../../view_models/local_notification_view_model.dart';
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key, required this.categoryId});
   final String categoryId;
@@ -18,7 +21,6 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController imageController=TextEditingController();
   TextEditingController priceController=TextEditingController();
   TextEditingController productDescriptionController=TextEditingController();
-  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,9 +101,10 @@ class _AddProductState extends State<AddProduct> {
                   categoryId:widget.categoryId,),
                 context);
             Navigator.pop(context);
+            NotificationModel notification=NotificationModel(name: "${nameController.text} qoshildi", id:DateTime.now().millisecond);
+            context.read<NotificationViewModel>().addNotification(notification);
             LocalNotificationService().showNotification(
-                title: "${nameController.text} nomli mahsulot qoshildi", body:"Mahsulot", id: id);
-            id++;
+                title: "${nameController.text} nomli mahsulot qoshildi", body:"Mahsulot", id:notification.id);
             },
               style: TextButton.styleFrom(
                   backgroundColor: AppColors.c_0C8A7B

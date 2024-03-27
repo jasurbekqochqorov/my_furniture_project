@@ -4,6 +4,7 @@ import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/view_models/auth_view_model.dart';
 import 'package:my_furniture_project/view_models/category_view_model.dart';
+import 'package:my_furniture_project/view_models/local_notification_view_model.dart';
 import 'package:my_furniture_project/view_models/products_view_model.dart';
 import 'package:my_furniture_project/view_models/tab_view_model.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => CategoriesViewModel()),
         ChangeNotifierProvider(create: (_) => ProductsViewModel()),
+        ChangeNotifierProvider(create: (_) => NotificationViewModel()),
       ],
       child: const MyApp(),
     ),

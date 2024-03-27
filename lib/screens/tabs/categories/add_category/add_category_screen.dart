@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_furniture_project/data/model/notification_model.dart';
 import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/servise/local_notification_service.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
+import 'package:my_furniture_project/view_models/local_notification_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/model/category_model.dart';
@@ -19,7 +21,6 @@ class AddCategory extends StatefulWidget {
 class _AddCategoryState extends State<AddCategory> {
   TextEditingController nameController=TextEditingController();
   TextEditingController imageController=TextEditingController();
-  int id=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,12 +73,13 @@ class _AddCategoryState extends State<AddCategory> {
                     ),
                     context,
                   );
+            NotificationModel notification=NotificationModel(name: "${nameController.text} qoshildi", id:DateTime.now().millisecond);
+            context.read<NotificationViewModel>().addNotification(notification);
             Navigator.pushReplacementNamed(context,RouteNames.tabRoute);
             LocalNotificationService().showNotification(
                 title:"${nameController.text} category qoshildi",
                 body: 'Mahsulotni korish',
-                id: id);
-            id++;
+                id:notification.id);
             },
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.c_0C8A7B
