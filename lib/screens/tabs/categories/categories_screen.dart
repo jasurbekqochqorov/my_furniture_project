@@ -101,12 +101,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   context
                                     .read<CategoriesViewModel>()
                                     .deleteCategory(category.docId, context);
-                                  Navigator.pop(context);
                                   NotificationModel notification=NotificationModel(name: "${category.categoryName} o'chirildi", id:DateTime.now().millisecond);
                                   context.read<NotificationViewModel>().addNotification(notification);
                                   LocalNotificationService().showNotification(
                                       title:"${category.categoryName} category o'chirildi", body:'Categoryni korisg', id:notification.id);
-                                }, child:const Text('ok')),
+                                  Navigator.pop(context);
+                                  }, child:const Text('ok')),
                               ],
                             );
                           });
@@ -160,38 +160,3 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 }
-
-//  context
-//                                     .read<CategoriesViewModel>()
-//                                     .updateCategory(
-//                                       CategoryModel(
-//                                         imageUrl:
-//                                             "https://dnr.wisconsin.gov/sites/default/files/feature-images/ECycle_Promotion_Manufacturers.jpg",
-//                                         categoryName: "Electronics",
-//                                         docId: category.docId,
-//                                       ),
-//                                       context,
-//                                     );
-
-
-
-//context
-//                                     .read<CategoriesViewModel>()
-//                                     .deleteCategory(category.docId, context);
-
-
-
-//IconButton(
-//             onPressed: () {
-//               context.read<CategoriesViewModel>().insertCategory(
-//                     CategoryModel(
-//                       imageUrl:
-//                           "https://viawebsite.blob.core.windows.net/viaseating/homepage/header/2023-wk37-muir-chairs-600.jpg",
-//                       categoryName: "Chair",
-//                       docId: "",
-//                     ),
-//                     context,
-//                   );
-//             },
-//             icon: const Icon(Icons.add),
-//           ),

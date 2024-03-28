@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/data/model/notification_model.dart';
 import 'package:my_furniture_project/screens/routes.dart';
@@ -7,10 +8,9 @@ import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
 import 'package:my_furniture_project/view_models/local_notification_view_model.dart';
 import 'package:provider/provider.dart';
-
+import '../../../../data/api_provider/api_provider.dart';
 import '../../../../data/model/category_model.dart';
 import '../../../../view_models/category_view_model.dart';
-
 class AddCategory extends StatefulWidget {
   const AddCategory({super.key});
 
@@ -21,6 +21,46 @@ class AddCategory extends StatefulWidget {
 class _AddCategoryState extends State<AddCategory> {
   TextEditingController nameController=TextEditingController();
   TextEditingController imageController=TextEditingController();
+  String fcmToken = "";
+
+  void init() async {
+    fcmToken = await FirebaseMessaging.instance.getToken() ?? "";
+    debugPrint("FCM TOKEN:$fcmToken");
+    final token = await FirebaseMessaging.instance.getAPNSToken();
+    debugPrint("getAPNSToken : ${token.toString()}");
+    LocalNotificationService.localNotificationService;
+    //Foreground
+    FirebaseMessaging.onMessage.listen(
+          (RemoteMessage remoteMessage) {
+        if (remoteMessage.notification != null) {
+          LocalNotificationService().showNotification(
+            title: remoteMessage.notification!.title!,
+            body: remoteMessage.notification!.body!,
+            id: DateTime.now().second.toInt(),
+          );
+
+          debugPrint(
+              "FOREGROUND NOTIFICATION:${remoteMessage.notification!.title}");
+        }
+      },
+    );
+    //Background
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+      debugPrint("ON MESSAGE OPENED APP:${remoteMessage.notification!.title}");
+    });
+    // Terminated
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        debugPrint("TERMINATED:${message.notification?.title}");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +104,7 @@ class _AddCategoryState extends State<AddCategory> {
             ),
           ),
           const Spacer(),
-          TextButton(onPressed: (){
+          TextButton(onPressed: ()async{
             context.read<CategoriesViewModel>().insertCategory(
                     CategoryModel(
                       imageUrl:imageController.text,
@@ -80,6 +120,12 @@ class _AddCategoryState extends State<AddCategory> {
                 title:"${nameController.text} category qoshildi",
                 body: 'Mahsulotni korish',
                 id:notification.id);
+            String messageId = await ApiProvider().sendNotificationToUsers(
+              fcmToken: fcmToken,
+              title: "Bu test notification",
+              body: "Yana test notiifcation",
+            );
+            debugPrint("MESSAGE ID:$messageId");
             },
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.c_0C8A7B
