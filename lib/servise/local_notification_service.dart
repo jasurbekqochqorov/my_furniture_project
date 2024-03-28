@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:my_furniture_project/screens/tabs/shopping/shopping_screen.dart';
+import 'package:my_furniture_project/screens/tabs/categories/categories_screen.dart';
 import 'dart:async';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -45,10 +45,10 @@ class LocalNotificationService {
           if (notification.payload != null) {
             Navigator.push(navigatorKey.currentContext!,
                 MaterialPageRoute(builder: (context) {
-                  return const ShoppingScreen();
+                  return const CategoriesScreen();
                 }));
           }
-          print(notification.payload);
+          debugPrint("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa${notification.payload}");
         });
 
     await flutterLocalNotificationsPlugin
@@ -64,7 +64,7 @@ class LocalNotificationService {
 
   @pragma('vm:entry-point')
   void notificationTapBackground(NotificationResponse notificationResponse) {
-    print("TAPPED FROM BACKGROUND");
+    debugPrint("TAPPED FROM BACKGROUND");
   }
 
   AndroidNotificationChannel androidNotificationChannel =
@@ -82,7 +82,7 @@ class LocalNotificationService {
       String? body,
       String? payload,
       ) async {
-    print(payload);
+    debugPrint(payload);
   }
 
   void showNotification({

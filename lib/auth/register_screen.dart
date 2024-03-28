@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_furniture_project/utils/permission_utils/app_permissions.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -173,6 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SizedBox(height: 16.h,),
             TextButton(onPressed: (){
               Navigator.pushReplacementNamed(context,RouteNames.loginRoute);
+              AppPermissions.getSomePermissions();
             },
                 child:RichText(text:TextSpan(
                     text: 'Already Have An Account?',

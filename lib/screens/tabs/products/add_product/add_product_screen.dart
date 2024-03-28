@@ -117,22 +117,3 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 }
-// actions: [
-//   // IconButton(
-//   //   onPressed: () {
-//   //     context.read<ProductsViewModel>().insertProducts(
-//   //           ProductModel(
-//   //             price: 12.5,
-//   //             imageUrl:
-//   //                 "https://i.ebayimg.com/images/g/IUMAAOSwZGBkTR-K/s-l400.png",
-//   //             productName: "Nokia 12 80",
-//   //             docId: "",
-//   //             productDescription: "productDescription",
-//   //             categoryId: "kcggCJzOEz7gH1LQy44x",
-//   //           ),
-//   //           context,
-//   //         );
-//   //   },
-//   //   icon: const Icon(Icons.add),
-//   // ),
-// ],

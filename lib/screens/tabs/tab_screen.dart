@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
 import 'package:my_furniture_project/screens/tabs/profile/profile_screen.dart';
 import 'package:my_furniture_project/screens/tabs/shopping/shopping_screen.dart';
 import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
-
 import '../../view_models/tab_view_model.dart';
 import 'categories/categories_screen.dart';
 
@@ -20,8 +18,9 @@ class _TabScreenState extends State<TabScreen> {
     const CategoriesScreen(),
     const ShoppingScreen(),
     const ProfileScreen(),
-
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:my_furniture_project/utils/colors/app_colors.dart';
 import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/permission_utils/app_permissions.dart';
 import '../../../utils/styles/app_text_style.dart';
 import '../../../view_models/auth_view_model.dart';
 
@@ -71,32 +72,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 24.h,),
                     Expanded(
-                      child: ListView(children: [
-                        ...List.generate(6, (index){
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.h),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(17),
-                              child:TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 16.h,horizontal: 19.w),
-                                  backgroundColor: AppColors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)
-                                  )
-                                ),
-                                onPressed: (){},
-                                child:Row(children: [
-                                  Icon(Icons.person,color: AppColors.c_828A89,),
-                                  SizedBox(width: 14.w,),
-                                  Text('Profile',style: AppTextStyle.interMedium.copyWith(
-                                    color: AppColors.c_101817,fontSize: 16.w
-                                  ),)
-                                ],),
-                              ),
-                            ),
-                          );
-                        })
+                      child: ListView(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getNotificationPermission();
+                            },
+                            child: const Text("NOTIFICATION"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getCalendarFullAccessPermission();
+                            },
+                            child: const Text("CALENDAR"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getPhotosPermission();
+                            },
+                            child: const Text("PHOTOS"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getVideosPermission();
+                            },
+                            child: const Text("VIDEOS"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getMicrophonePermission();
+                            },
+                            child: const Text("MICROPHONE"),
+                          ),
+                        TextButton(
+                          onPressed: () {
+                            AppPermissions.getStoragePermission();
+                          },
+                          child: const Text("STORAGE"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            AppPermissions.getCameraPermission();
+                          },
+                          child: const Text("CAMERA"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            AppPermissions.getLocationPermission();
+                          },
+                          child: const Text("LOCATION"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            AppPermissions.getContactsPermission();
+                          },
+                          child: const Text("CONTACTS"),
+                        ),
+                          TextButton(
+                            onPressed: () {
+                              AppPermissions.getPhonePermission();
+                            },
+                            child: const Text("PHONE"),
+                          ),
+                        TextButton(
+                          onPressed: () {
+                            AppPermissions.getSomePermissions();
+                          },
+                          child: const Text("SOME PERMISSIONS"),
+                        ),
                       ],),
                     ),
                     TextButton(onPressed: (){

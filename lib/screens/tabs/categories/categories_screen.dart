@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:my_furniture_project/screens/routes.dart';
 import 'package:my_furniture_project/screens/tabs/products/products_screen.dart';
@@ -8,6 +9,7 @@ import 'package:my_furniture_project/utils/size/size_utils.dart';
 import 'package:my_furniture_project/utils/styles/app_text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+import '../../../data/api_provider/api_provider.dart';
 import '../../../data/model/category_model.dart';
 import '../../../data/model/notification_model.dart';
 import '../../../view_models/auth_view_model.dart';
@@ -23,6 +25,38 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   String searchText='';
+  String fcmToken='';
+  void init() async {
+    fcmToken = await FirebaseMessaging.instance.getToken() ?? "";
+    debugPrint("FCM TOKEN:$fcmToken");
+    final token = await FirebaseMessaging.instance.getAPNSToken();
+    debugPrint("getAPNSToken : ${token.toString()}");
+    LocalNotificationService.localNotificationService;
+    //Foreground
+    FirebaseMessaging.onMessage.listen(
+          (RemoteMessage remoteMessage) {
+        if (remoteMessage.notification != null) {
+          LocalNotificationService().showNotification(
+            title: remoteMessage.notification!.title!,
+            body: remoteMessage.notification!.body!,
+            id: DateTime.now().second.toInt(),
+          );
+          debugPrint(
+              "FOREGROUND NOTIFICATION:${remoteMessage.notification!.title}");
+        }
+      },
+    );
+    //Background
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+      debugPrint("ON MESSAGE OPENED APP:${remoteMessage.notification!.title}");
+    });
+    // Terminated
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        debugPrint("TERMINATED:${message.notification?.title}");
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
   User? user = context.watch<AuthViewModel>().getUser;
@@ -97,15 +131,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                 TextButton(onPressed: (){
                                   Navigator.pop(context);
                                 }, child:const Text('cancel')),
-                                TextButton(onPressed: (){
+                                TextButton(onPressed: ()async{
                                   context
                                     .read<CategoriesViewModel>()
                                     .deleteCategory(category.docId, context);
                                   Navigator.pop(context);
                                   NotificationModel notification=NotificationModel(name: "${category.categoryName} o'chirildi", id:DateTime.now().millisecond);
                                   context.read<NotificationViewModel>().addNotification(notification);
-                                  LocalNotificationService().showNotification(
-                                      title:"${category.categoryName} category o'chirildi", body:'Categoryni korisg', id:notification.id);
+                                  String messageId = await ApiProvider().sendNotificationToUsers(
+                                    topicName: 'news',
+                                    title: "${category.categoryName} category o'chirildi",
+                                    body: "Categoryni korish",
+                                  );
+                                  debugPrint("MESSAGE ID:$messageId");
                                 }, child:const Text('ok')),
                               ],
                             );
@@ -161,37 +199,3 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 }
 
-//  context
-//                                     .read<CategoriesViewModel>()
-//                                     .updateCategory(
-//                                       CategoryModel(
-//                                         imageUrl:
-//                                             "https://dnr.wisconsin.gov/sites/default/files/feature-images/ECycle_Promotion_Manufacturers.jpg",
-//                                         categoryName: "Electronics",
-//                                         docId: category.docId,
-//                                       ),
-//                                       context,
-//                                     );
-
-
-
-//context
-//                                     .read<CategoriesViewModel>()
-//                                     .deleteCategory(category.docId, context);
-
-
-
-//IconButton(
-//             onPressed: () {
-//               context.read<CategoriesViewModel>().insertCategory(
-//                     CategoryModel(
-//                       imageUrl:
-//                           "https://viawebsite.blob.core.windows.net/viaseating/homepage/header/2023-wk37-muir-chairs-600.jpg",
-//                       categoryName: "Chair",
-//                       docId: "",
-//                     ),
-//                     context,
-//                   );
-//             },
-//             icon: const Icon(Icons.add),
-//           ),
